@@ -1,0 +1,67 @@
+package storage
+
+INT Page
+
+def resetMenu(){
+    inventory.setSlot(enderchest.8, minecraft:diamond{CustomModelData:1,display:{Name:'[{"text":"Previous","italic":false}]'}},1)
+    inventory.setSlot(enderchest.17, minecraft:lime_stained_glass_pane{display:{Name:'[{"text":"","italic":false}]'}},1)
+    inventory.setSlot(enderchest.26, minecraft:diamond{CustomModelData:2,display:{Name:'[{"text":"Next","italic":false}]'}},1)
+    clear(@s,diamond)
+    clear(@s,lime_stained_glass_pane)
+}
+
+def init(){
+    menu.showenderchest{
+        main()
+    }
+    menu.onenderchestclosed{
+        heap.saveenderchest(Page)
+    }
+    
+    Page = 0
+    inventory.clearenderchest()
+    heap.loadenderchest(Page)
+    
+    resetMenu()
+}
+itemtags item{
+    paper,
+    stick
+}
+
+def main(){
+    if (!@s[nbt={EnderItems:[{Slot:26b,id:"minecraft:diamond"}]}]){
+        if (Page < 32){
+            heap.saveenderchest(Page)
+            Page ++
+            inventory.clearenderchest()
+            heap.loadenderchest(Page)
+            resetMenu()
+            /playsound minecraft:block.note_block.bell block @s ~ ~ ~ 1 1
+        }
+        else{
+            resetMenu()
+        }
+    }
+    if (!@s[nbt={EnderItems:[{Slot:17b,id:"minecraft:lime_stained_glass_pane"}]}]){
+        resetMenu()
+        if (@s[tag=__debug__]){
+            item.giveall()
+        }
+        /tag TheblueMan003 add __debug__
+    }
+    
+    if (!@s[nbt={EnderItems:[{Slot:8b,id:"minecraft:diamond"}]}]){
+        if (Page > 0){
+            heap.saveenderchest(Page)
+            Page --
+            inventory.clearenderchest()
+            heap.loadenderchest(Page)
+            resetMenu()
+            /playsound minecraft:block.note_block.bell block @s ~ ~ ~ 1 1
+        }
+        else{
+            resetMenu()
+        }
+    }
+}

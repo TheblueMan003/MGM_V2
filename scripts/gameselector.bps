@@ -1,0 +1,292 @@
+package gameselector
+
+define int $nb = fromconst(mgm2.games_nb)
+define int $pages = fromconst(mgm2.gamesPageNb)
+bool[$eval($nb)] gameEnabled := false
+bool[100] availableBox := true
+
+bool alphagate := false
+bool omegagate := false
+
+FLOAT Z,TZ, Tick
+INT GameBox, TeleportTick, Page, DTick, TabIndex
+
+define int $buttonData = {Tags:["gs.button","scr","scr.button","scr.clickable"],NoGravity:1,Invisible:1}
+define int $blankData = {Tags:["gs.button"],NoGravity:1,Invisible:1}
+
+def reset(){
+    gameselection.stopAll()
+}
+
+def start(){
+    GameBox = availableBox.indexof(true)
+    if (GameBox > -1){
+        gameselection.start()
+        screen.addcontroll()
+        TeleportTick = 1
+        Page = 0
+        DTick = 0
+        Tick = 0
+    }
+    else{
+        actionbar.show(10, 10, "Please Wait...")
+    }
+}
+
+def exit(){
+    GameBox = -1
+    screen.rmcontroll()
+    clear(carrot_on_a_stick)
+    /tp @s -16.5 71.00 8.60 -90 0
+}
+def exitButton(){
+    clearBox()
+    exit()
+    gameselection.stop()
+}
+
+def teleport(){
+    switch(GameBox){
+        forgenerate($i,0,99){
+            case($i){
+                positioned($eval($i*19+9) -56 7){
+                    if (!@s[distance=..0.01]){
+                        /tp @s ~ ~ ~
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+def @playerrelog(){
+    if (GameBox > -1){
+        exit()
+    }
+}
+def clearBox(){
+    int id = GameBox
+    with(@e[tag=gs.button],false,GameBox==id){
+        kill()
+    }
+}
+
+cprocess animate{
+    def main(){
+        with(@e[tag=gs.button],true){
+            if (Tick >= 0 && Tick <= 10){
+                @s.z = math.lerp(Z, TZ, Tick/10)
+            }
+            if (Tick == 10){
+                @s.z = TZ
+                stop()
+            }
+            Tick ++
+        }
+    }
+}
+
+cprocess gameselection{
+    def main(){
+        int tick := 0
+        int count
+        
+        if (tick % 20 == 0){
+            availableBox = true
+            count = 0
+        }
+        screen.screen_tick2()
+        with(@a,true,GameBox > -1){
+            DTick ++
+            if (DTick > 20*60*5){
+                exitButton()
+            }
+            kill(@e[type=item,distance=..20])
+            effect.night_vision()
+            if (TeleportTick > 0){
+                teleport()
+                inventory.setoffhand(carrot_on_a_stick)
+                TeleportTick ++
+                if (TeleportTick == 10){
+                    /tp @s ~ ~ ~ 180 0
+                    updatePage()
+                }
+            }
+            if (tick % 20 == 0){
+                availableBox[GameBox] = false
+                count ++
+            }
+        }
+        if (tick % 20 == 0 && count == 0){
+            stopall()
+        }
+        tick ++
+    }
+}
+def updatePage(){
+    switch(Page){
+        forgenerate($i, 0, $eval($pages-1)){
+            $i -> createScreenPage$i()
+        }
+    }
+}
+bool prevPage(){
+    bool ret = false
+    if (Page > 0){
+        Page --
+        ret = true
+        updatePage()
+    }
+    return ret
+}
+bool nextPage(){
+    bool ret = false
+    if (Page < $eval($pages-1)){
+        Page ++
+        ret = true
+        updatePage()
+    }
+    return ret
+}
+def makeSelection(int game){
+    exitButton()
+    bool check = gameEnabled[game]
+    if (check){
+        logon.enterPortal()
+        switch(game){
+            forgenerate($g,games){
+                case($g){
+                    positioned($eval(2+5*$g.index) -46 2){
+                        if (!@s[distance=..0.01]){
+                            /tp @s ~ ~ ~
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+forgenerate($i, 0, $eval($pages-1)){
+    def createScreenPage$i(){
+        TabIndex = 1
+        int e1 = gameEnabled[$eval($i*6+0)]
+        int e2 = gameEnabled[$eval($i*6+1)]
+        int e3 = gameEnabled[$eval($i*6+2)]
+        int e4 = gameEnabled[$eval($i*6+3)]
+        int e5 = gameEnabled[$eval($i*6+4)]
+        int e6 = gameEnabled[$eval($i*6+5)]
+        
+        clearBox()
+        int id = GameBox
+        positioned(~-8 ~1 ~-6){
+            entity.summon(armor_stand, $buttonData){
+                screen.genericbutton(turtle_egg,5000,"Previous Page"){
+                    with(@a[tag=scr.issuer],true){
+                        if (prevPage()){
+                            sound.play(minecraft:block.note_block.bell)
+                        }
+                        else{
+                            sound.play(minecraft:block.note_block.bass)
+                        }
+                    }
+                }
+                Tick = 100
+                GameBox = id
+                TabIndex = 0
+            }
+        }
+        
+        positioned(~8 ~1 ~-6){
+            entity.summon(armor_stand, $buttonData){
+                screen.genericbutton(turtle_egg,5003,"Next Page"){
+                    with(@a[tag=scr.issuer],true){
+                        if (nextPage()){
+                            sound.play(minecraft:block.note_block.bell)
+                        }
+                        else{
+                            sound.play(minecraft:block.note_block.bass)
+                        }
+                    }
+                }
+                Tick = 100
+                GameBox = id
+                TabIndex = 7
+            }
+        }
+        
+        positioned(~ ~-2 ~-6){
+            entity.summon(armor_stand, $buttonData){
+                screen.genericbutton(turtle_egg,5006,"Exit"){
+                    with(@a[tag=scr.issuer],true){
+                        exitButton()
+                    }
+                }
+                Tick = 100
+                GameBox = id
+                TabIndex = 8
+            }
+        }
+        
+        positioned(~ ~4 ~-6){
+            entity.summon(armor_stand, $blankData){
+                armor_stand.setmodel(turtle_egg,$eval(6000 + $i))
+                Tick = 100
+                GameBox = id
+            }
+        }
+        
+        
+        forgenerate($k,2,0,-2){
+            forgenerate($j,-4,4,4){
+                positioned(~$j ~$k ~6){
+                    if (e$eval($j.index+$k.index*3+1)){
+                        entity.summon(armor_stand, $buttonData){
+                            define int $name = fromenum(games, $eval($j.index+$k.index*3+$i*6))
+                            screen.genericbutton(turtle_egg,$eval(1 + $j.index*3+$k.index*9+$i*18),$name.name){
+                                with(@a[tag=scr.issuer],true){
+                                    sound.play(minecraft:block.note_block.bell)
+                                    makeSelection($i*6+$eval($j.index+$k.index*3))
+                                }
+                            }
+                            GameBox = id
+                            Z = @s.z
+                            TZ = Z - 12
+                            Tick = -5 * $eval($j.index+$k.index*3)
+                            animate.start()
+                            TabIndex = $eval($j.index+$k.index*3+1)
+                        }
+                    }
+                    if (!e$eval($j.index+$k.index*3+1)){
+                        entity.summon(armor_stand, $blankData){
+                            armor_stand.setmodel(turtle_egg,$eval(3 + $j.index*3+$k.index*9+$i*18))
+                            GameBox = id
+                            Z = @s.z
+                            TZ = Z - 12
+                            Tick = -5 * $eval($j.index+$k.index*3)
+                            animate.start()
+                            TabIndex = $eval($j.index+$k.index*3+1)
+                            def click(buttonarg _){
+                                sound.play(minecraft:block.note_block.bass)
+                            }
+                            def enter(buttonarg _){
+                                at(@s){
+                                    with(@a[distance=..20],true){
+                                        sound.play(minecraft:entity.item.pickup)
+                                    }
+                                }
+                            }
+                            def leave(buttonarg _){
+                            }
+                            def hover(buttonarg _){
+                                actionbar.show(100,10,"Locked")
+                            }
+                            tag(scr.clickable)
+                            screen.buttonSettup(click,enter,leave,hover)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

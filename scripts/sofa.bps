@@ -1,0 +1,44 @@
+package sofa
+
+
+enum _sofa(json block, json face){
+    white(acacia_button,wall),
+    blue(acacia_button,floor),
+    green(acacia_button,ceiling),
+    magneta(jungle_button,wall),
+    yellow(jungle_button,floor)
+}
+enum _dir(json x, json z){
+    north(0.5,0),
+    south(0.5,0),
+    east(0,0.5),
+    west(0,0.5)
+}
+def @playerrelog(){
+    with(@e[tag=dc_chair]){
+        effect(give, invisibility,999999,0,true)
+    }
+}
+def chairBase(){
+    /summon minecraft:pig ~ ~-0.2 ~ {Tags:["sofa.trg","deco","dc_chair"],Invulnerable: 1b, Saddle: 1b, NoAI:1b, Silent:1b}
+    with(@e[tag=sofa.trg]){
+        @s.rot_x = x
+        effect(give, invisibility,999999,0,true)
+        untag(trg)
+    }
+}
+forgenerate($i,_sofa){
+    forgenerate($j,_dir){
+        def summon_$i_$j(){
+            aligned{
+                /setblock ~ ~ ~ minecraft:$i.block[face=$i.face,facing=$j,powered=true]
+                positioned(~$j.x ~ ~$j.z){
+                    chairBase()
+                }
+                positioned(~-$j.x ~ ~-$j.z){
+                    chairBase()
+                }
+            }
+        }
+    }
+}

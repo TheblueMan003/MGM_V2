@@ -1,0 +1,70 @@
+package menu
+
+BOOL InMenu
+BOOL InMenuEnderchest
+BOOL Locked
+BOOL HasEnderchestCloseCallBack
+VOID=>VOID Tick
+VOID=>VOID Enderchest
+VOID=>VOID EnderchestCloseCallBack
+
+def @playertick main(){
+    if (InMenu){
+        void=>void menu = Tick
+        menu()
+        if (Locked){
+            effect.slowness(999999,255,true)
+            effect.jump_boost(999999,128,true)
+        }
+    }
+    if (InMenuEnderchest){
+        void=>void menu = Enderchest
+        menu()
+    }
+}
+
+def show(void=>void fct){
+    InMenu = true
+    Locked = false
+    Tick = fct
+}
+def lazy onEnderchestClosed(void=>void $fct){
+    EnderchestCloseCallBack = $fct
+    HasEnderchestCloseCallBack = true
+}
+def enderchestCallback(){
+    if (HasEnderchestCloseCallBack){
+        void=>void c = EnderchestCloseCallBack
+        c()
+        HasEnderchestCloseCallBack = false
+    }
+}
+def showEnderchest(void=>void fct){
+    enderchestCallback()
+    InMenuEnderchest = true
+    Enderchest = fct
+}
+def showLock(void=>void fct){
+    InMenu = true
+    Locked = true
+    Tick = fct
+}
+
+def close(){
+    if (InMenu){
+        InMenu = false
+        title(@s,title,"")
+        if (Locked){
+            effect.clearslowness()
+            effect.clearjump_boost()
+            Locked = false
+        }
+    }
+}
+
+def closeEnderchest(){
+    if (InMenuEnderchest){
+        enderchestCallback()
+        InMenuEnderchest = false
+    }
+}

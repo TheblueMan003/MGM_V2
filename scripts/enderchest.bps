@@ -1,0 +1,138 @@
+package enderchest
+
+INT Tick
+INT Menu
+
+npc lootbox_shop
+npc storage
+npc bank
+npc code_redeems
+
+
+def code_redeems(){
+    aligned{
+        code_redeems = npc(copper_ingot)
+        code_redeems.disableoptimization()
+        code_redeems.setanimation{
+            tag(mgm.code)
+            tag(mgm.npc)
+            Menu = 4
+            code_redeems.lookatplayer()
+            Tick++
+            if (Tick > 40){
+                switch(random.range(0,7)){
+                    0 -> code_redeems.setanimations(animationset.hello())
+                    1 -> code_redeems.setanimations(animationset.insist())
+                    2 -> code_redeems.setanimations(animationset.overhere())
+                    3 -> code_redeems.setanimations(animationset.negotiation())
+                    4 -> code_redeems.setanimations(animationset.yes())
+                    5 -> code_redeems.setanimations(animationset.proud_kisses())
+                    6 -> code_redeems.setanimations(animationset.thinking())
+                }
+                armor_stand.setmodel(turtle_egg, 10003)
+                Tick = 0
+            }
+        }
+        /fill ~ ~ ~ ~ ~1 ~ ender_chest
+    }
+}
+
+
+def lootbox_shop(){
+    aligned{
+        lootbox_shop = npc(charcoal)
+        lootbox_shop.disableoptimization()
+        lootbox_shop.setanimation{
+            tag(mgm.lbshop)
+            tag(mgm.npc)
+            Menu = 3
+            lootbox_shop.lookatplayer()
+            Tick++
+            if (Tick > 40){
+                switch(random.range(0,7)){
+                    0 -> lootbox_shop.setanimations(animationset.hello())
+                    1 -> lootbox_shop.setanimations(animationset.insist())
+                    2 -> lootbox_shop.setanimations(animationset.overhere())
+                    3 -> lootbox_shop.setanimations(animationset.negotiation())
+                    4 -> lootbox_shop.setanimations(animationset.yes())
+                    5 -> lootbox_shop.setanimations(animationset.proud_kisses())
+                    6 -> lootbox_shop.setanimations(animationset.thinking())
+                }
+                armor_stand.setmodel(turtle_egg, 10002)
+                Tick = 0
+            }
+        }
+        /fill ~ ~ ~ ~ ~1 ~ ender_chest
+    }
+}
+
+def storage(){
+    aligned{
+        storage = npc(raw_iron)
+        storage.disableoptimization()
+        storage.setanimation{
+            tag(mgm.storage)
+            tag(mgm.npc)
+            Menu = 2
+            storage.lookatplayer()
+            Tick++
+            if (Tick > 40){
+                switch(random.range(0,7)){
+                    0 -> storage.setanimations(animationset.hello())
+                    1 -> storage.setanimations(animationset.insist())
+                    2 -> storage.setanimations(animationset.overhere())
+                    3 -> storage.setanimations(animationset.negotiation())
+                    4 -> storage.setanimations(animationset.yes())
+                    5 -> storage.setanimations(animationset.proud_kisses())
+                    6 -> storage.setanimations(animationset.thinking())
+                }
+                Tick = 0
+                armor_stand.setmodel(turtle_egg, 10001)
+            }
+        }
+        /fill ~ ~ ~ ~ ~1 ~ ender_chest
+    }
+}
+
+def bank(){
+    aligned{
+        bank = npc(coal)
+        bank.disableoptimization()
+        bank.setanimation{
+            tag(mgm.bank)
+            tag(mgm.npc)
+            Menu = 1
+            bank.lookatplayer()
+            Tick++
+            if (Tick > 40){
+                switch(random.range(0,7)){
+                    0 -> bank.setanimations(animationset.hello())
+                    1 -> bank.setanimations(animationset.insist())
+                    2 -> bank.setanimations(animationset.overhere())
+                    3 -> bank.setanimations(animationset.negotiation())
+                    4 -> bank.setanimations(animationset.yes())
+                    5 -> bank.setanimations(animationset.proud_kisses())
+                    6 -> bank.setanimations(animationset.thinking())
+                }
+                armor_stand.setmodel(turtle_egg, 10000)
+                Tick = 0
+            }
+        }
+        /fill ~ ~ ~ ~ ~1 ~ ender_chest
+    }
+}
+
+def @playertick(){
+    input.onopenenderchest{
+        int menu = 0
+        with(@e[tag=mgm.npc,sort=nearest,limit=1]){
+            menu = Menu
+        }
+        switch(menu){
+            1 -> bank.init()
+            2 -> storage.init()
+            3 -> lootbox_shop.init()
+            4 -> code_redeems.init()
+        }
+    }
+}

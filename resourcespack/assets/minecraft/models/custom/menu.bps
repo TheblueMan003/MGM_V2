@@ -1,0 +1,34 @@
+forgenerate($i,(shop,bank,code)){
+    jsonfile $i{
+        "credit": "Made with Blockbench",
+        "textures": {
+            "0": "ui/$i",
+            "particle": "ui/$i"
+        },
+        "elements": [
+            {
+                "from": [-16, -16, 9],
+                "to": [32, 32, 9],
+                "shade": false,
+                "faces": {
+                    "north": {"uv": [0, 0, 16, 16], "texture": "#0"},
+                    "east": {"uv": [0, 0, 16, 16], "texture": "#0"},
+                    "south": {"uv": [0, 0, 16, 16], "texture": "#0"},
+                    "west": {"uv": [0, 0, 16, 16], "texture": "#0"},
+                    "up": {"uv": [0, 0, 16, 16], "texture": "#0"},
+                    "down": {"uv": [0, 0, 16, 16], "texture": "#0"}
+                }
+            }
+        ],
+        "display": {
+            "gui": {
+                "translation": [0, -10.25, -80],
+                "scale": [3.65, 3.65, 4]
+            },
+            "head": {
+                "translation": [0, 27.75, -1.75],
+                "scale": [4, 4, 4]
+            }
+        }
+    }
+}

@@ -1,0 +1,88 @@
+package item
+
+INT Time
+def ticking main(){
+    with(@e[type=item,tag=!ignore]){
+        if (!tag(item.ground)){
+            data.set({PickupDelay:100})
+            tag(item.ground)
+        }
+        Time ++
+        if (Time % 20 == 1){
+            switch(Time/20){
+                0 -> /data merge entity @s {CustomName:'[{"text":"a","font":"mgm"}]',CustomNameVisible:1b}
+                1 -> /data merge entity @s {CustomName:'[{"text":"b","font":"mgm"}]',CustomNameVisible:1b}
+                2 -> /data merge entity @s {CustomName:'[{"text":"c","font":"mgm"}]',CustomNameVisible:1b}
+                3 -> /data merge entity @s {CustomName:'[{"text":"d","font":"mgm"}]',CustomNameVisible:1b}
+                4 -> /data merge entity @s {CustomName:'[{"text":"e","font":"mgm"}]',CustomNameVisible:1b}
+                5 -> /data merge entity @s {CustomNameVisible:0b}
+                5 -> tag(ignore)
+            }
+        }
+        kill(@s[nbt={Item:{id:"minecraft:warped_fungus_on_a_stick"}}])
+        kill(@s[nbt={Item:{id:"minecraft:carrot_on_a_stick"}}])
+    }
+}
+def @playerinit(){
+    inventory.setoffhand(warped_fungus_on_a_stick{display:{Name:'[{"text":"","italic":false}]'}})
+}
+events.oninventorychanged{
+    if (!inventory.isholdingitemoffhand(warped_fungus_on_a_stick) &&
+        !inventory.isholdingitemoffhand(carrot_on_a_stick)){
+        clear(warped_fungus_on_a_stick)
+        clear(carrot_on_a_stick)
+    }
+    if (!inventory.isholdingitemoffhand(carrot_on_a_stick)){
+        inventory.setoffhand(warped_fungus_on_a_stick{display:{Name:'[{"text":"","italic":false}]'}})
+    }
+    forgenerate($i,0,35){
+        if (inventory.isholdingiteminslot($i,warped_fungus_on_a_stick)){
+            clear(warped_fungus_on_a_stick)
+        }
+        if (inventory.isholdingiteminslot($i,carrot_on_a_stick)){
+            clear(carrot_on_a_stick)
+        }
+    }
+}
+
+jsonfile item_modifiers/consume{
+    "function": "minecraft:set_count",
+    "count": -1,
+    "add": true
+}
+def consume(){
+    /item modify entity @s weapon.mainhand mgm2:consume
+}
+
+def @playerclickfungus(){
+    bool register = false
+    if (!logon.Loggon){
+        if (!logon.Sneaking){
+            forgenerate($i,items){
+                if (!register && inventory.isholdingitem(paper, {CustomModelData:$eval($i.index+1)})){
+                    $i.onclick()
+                    register = true
+                }
+            }
+        }
+        if (logon.Sneaking){
+            particle.unequip()
+        }
+    }
+}
+
+forgenerate($i,items){
+    def @itemgive give_$i(){
+        /give @s paper{CustomModelData:$eval($i.index+1),display:{Name:'[{"text":$i.name,"color":"$i.color","italic":false}]',Lore:['[{"text":$i.lore,"color":"yellow","italic":false}]']}} 1
+    }
+}
+def give(items i){
+    switch(i){
+        forgenerate($i,items){
+            $i.index -> give_$i()
+        }
+    }
+}
+def giveall(){
+    @itemgive()
+}

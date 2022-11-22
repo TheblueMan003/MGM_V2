@@ -1,0 +1,21 @@
+font.customaddchar(mgm, welcome_back_0, "ui/welcome_back_0.png", 48, "\uE000")
+font.customaddchar(mgm, coin, "ui/coin.png", 8,8, "\uE010")
+font.customaddchar(mgm, lock5, "ui/lock_5.png", 8,8, "a")
+font.customaddchar(mgm, lock4, "ui/lock_4.png", 8,8, "b")
+font.customaddchar(mgm, lock3, "ui/lock_3.png", 8,8, "c")
+font.customaddchar(mgm, lock2, "ui/lock_2.png", 8,8, "d")
+font.customaddchar(mgm, lock1, "ui/lock_1.png", 8,8, "e")
+font.customgenerate(mgm)
+
+forgenerate($i, items){
+    define int $char = hex($i.index)
+    font.customaddchar(mgm_item, $i, $i.ui_texture, 32, "\uE$char")
+}
+font.customgenerate(mgm_item)
+
+
+forgenerate($i, titles){
+    define int $char = hex($i.index)
+    font.customaddchar(mgm_titles, $i, "titles/$i.png", 8, 8, "\uE$char")
+}
+font.customgenerate(mgm_titles)

@@ -1,0 +1,24 @@
+package mgm2
+
+enum("items","items","CSV")
+val items_nb = $items.length
+
+enum("games","games.csv","CSV")
+val games_nb = $games.length
+val gamesPageNb = $eval($games.length|6)
+
+enum("titles","titles.csv","CSV")
+
+enum("codes","codes.csv","CSV")
+val codeNb = $codes.length
+
+int @test worldheight(){
+    int res = 0
+    if (block(0 -64 0 end_stone)){
+        res = 1
+    }
+    if (!block(0 -64 0 end_stone)){
+        res = 1
+    }
+    return res
+}

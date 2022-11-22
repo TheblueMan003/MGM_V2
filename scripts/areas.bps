@@ -1,0 +1,57 @@
+package areas
+
+int ax1, ay1, az1, ax2, ay2, az2
+def setmainGatePos1(){
+    ax1, ay1, az1 = @s.x,@s.y,@s.z
+}
+
+def setmainGatePos2(){
+    ax2, ay2, az2 = @s.x,@s.y,@s.z
+}
+room mainGate = room(ax1, ay1, az1, ax2, ay2, az2)
+mainGate.onEnter{
+    gameselector.start()
+}
+
+
+int bx1, by1, bz1, bx2, by2, bz2
+def setAlphaGatePos1(){
+    bx1, by1, bz1 = @s.x,@s.y,@s.z
+}
+
+def setAlphaGatePos2(){
+    bx2, by2, bz2 = @s.x,@s.y,@s.z
+}
+room alphaGate = room(bx1, by1, bz1, bx2, by2, bz2)
+alphaGate.color = blue
+alphaGate.onEnter{
+    if (gameselector.alphagate){
+        logon.enterMGMEvent()
+        /tp @s 2 -38 2
+    }
+    else{
+        tellraw(@s,("This gate is locked!",red))
+    }
+}
+
+
+int cx1, cy1, cz1, cx2, cy2, cz2
+def setOmegaGatePos1(){
+    cx1, cy1, cz1 = @s.x,@s.y,@s.z
+}
+
+def setOmegaGatePos2(){
+    cx2, cy2, cz2 = @s.x,@s.y,@s.z
+}
+room omegaGate = room(cx1, cy1, cz1, cx2, cy2, cz2)
+omegaGate.color = red
+omegaGate.onEnter{
+    if (gameselector.omegagate){
+        logon.enterMGMEvent()
+        /tp @s 7 -38 2
+    }
+    
+    else{
+        tellraw(@s,("This gate is locked!",red))
+    }
+}

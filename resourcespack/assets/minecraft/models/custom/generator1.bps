@@ -1,0 +1,11 @@
+forgenerate($i, (red,orange,yellow,green,aqua,blue,purple)){
+    models.item.flat(coin_$i,"custom/coin_$i")
+}
+
+forgenerate($i, (particle_heart,particle_flame,particle_angry,particle_soul,particle_happy,particle_soul_flame,particle_effect,particle_dust_white,particle_dust_red,particle_dust_orange,particle_dust_yellow,particle_dust_green,particle_dust_aqua,particle_dust_blue,particle_dust_purple,particle_dust_black,particle_firework,particle_note,particle_lava,particle_water,particle_totem)){
+    models.item.flat($i,"custom/$i")
+}
+
+forgenerate($i, titles){
+    models.item.flat(title_$i,"custom/title_$i")
+}

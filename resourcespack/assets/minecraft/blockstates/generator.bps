@@ -1,0 +1,32 @@
+customblock.add(acacia_button, "powered=true,facing=north,face=wall", a, "custom/sofa_white")
+customblock.add(acacia_button, "powered=true,facing=east,face=wall", b, "custom/sofa_white",90)
+customblock.add(acacia_button, "powered=true,facing=south,face=wall", c, "custom/sofa_white",180)
+customblock.add(acacia_button, "powered=true,facing=west,face=wall", d, "custom/sofa_white",270)
+
+customblock.add(acacia_button, "powered=true,facing=north,face=floor", e, "custom/sofa_blue")
+customblock.add(acacia_button, "powered=true,facing=east,face=floor", f, "custom/sofa_blue",90)
+customblock.add(acacia_button, "powered=true,facing=south,face=floor", g, "custom/sofa_blue",180)
+customblock.add(acacia_button, "powered=true,facing=west,face=floor", h, "custom/sofa_blue",270)
+
+customblock.add(acacia_button, "powered=true,facing=north,face=ceiling", i, "custom/sofa_green")
+customblock.add(acacia_button, "powered=true,facing=east,face=ceiling", j, "custom/sofa_green",90)
+customblock.add(acacia_button, "powered=true,facing=south,face=ceiling", k, "custom/sofa_green",180)
+customblock.add(acacia_button, "powered=true,facing=west,face=ceiling", l, "custom/sofa_green",270)
+customblock.generate(acacia_button)
+
+customblock.add(jungle_button, "powered=true,facing=north,face=wall", a, "custom/sofa_magenta")
+customblock.add(jungle_button, "powered=true,facing=east,face=wall", b, "custom/sofa_magenta",90)
+customblock.add(jungle_button, "powered=true,facing=south,face=wall", c, "custom/sofa_magenta",180)
+customblock.add(jungle_button, "powered=true,facing=west,face=wall", d, "custom/sofa_magenta",270)
+
+customblock.add(jungle_button, "powered=true,facing=north,face=floor", e, "custom/sofa_yellow")
+customblock.add(jungle_button, "powered=true,facing=east,face=floor", f, "custom/sofa_yellow",90)
+customblock.add(jungle_button, "powered=true,facing=south,face=floor", g, "custom/sofa_yellow",180)
+customblock.add(jungle_button, "powered=true,facing=west,face=floor", h, "custom/sofa_yellow",270)
+
+customblock.add(jungle_button, "powered=true,facing=north,face=ceiling", i, "custom/menu_sign")
+customblock.add(jungle_button, "powered=true,facing=east,face=ceiling", j, "custom/menu_sign",90)
+customblock.add(jungle_button, "powered=true,facing=south,face=ceiling", k, "custom/menu_sign",180)
+customblock.add(jungle_button, "powered=true,facing=west,face=ceiling", l, "custom/menu_sign",270)
+
+customblock.generate(jungle_button)

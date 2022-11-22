@@ -1,0 +1,94 @@
+package lootbox
+
+INT Tier, Speed, Tick
+INT ItemDisplay,ItemPrevious
+
+forgenerate($i,0,4){
+    def openTier$i(){
+        if (!menu.InMenu){
+            item.consume()
+            start($i)
+        }
+    }
+}
+
+def start(int tier){
+    Tier = tier
+    Speed = 32
+    Tick = 0
+    ItemPrevious = -1
+    pickRandomItem()
+    menu.showlock{
+        Tick += Speed
+        Tier := 0
+        if (Tick > 40){
+            if (Speed > 0){
+                Tick = 0
+                sound.play(minecraft:block.note_block.bit)
+                pickRandomItem()
+            }
+            else{
+                menu.close()
+            }
+        }
+        display()
+        if (random.range(0,20) == 0 && Speed > 1){
+            Speed /= 2
+        }
+        else if (Speed == 1 && random.range(0,5)){
+            int t = tier(ItemDisplay)
+            int n = math.max(t*7 - Tier*7, 0)
+            if (random.range(0,n*n+1+t) == 0){
+                item.give(ItemDisplay)
+                sound.play(minecraft:entity.player.levelup)
+                Speed = 0
+            }
+        }
+        else if (Speed == 0){
+            Tick++
+        }
+    }
+}
+
+int tier(int i){
+    int ret = 0
+    forgenerate($i,items){
+        if (i == $i.index){
+            ret = $i.tier
+        }
+    }
+    return ret
+}
+bool isLootBox(int i){
+    bool ret = false
+    forgenerate($i,items){
+        if (i == $i.index && $i.lootbox){
+            ret = true
+        }
+    }
+    return ret
+}
+def pickRandomItem(){
+    pickRandomItemInner()
+    ItemPrevious = ItemDisplay
+}
+def pickRandomItemInner(){
+    ItemDisplay = random.range(0, mgm2.items_nb)
+    int res = isLootBox(ItemDisplay)
+    if (!res){
+        pickRandomItemInner()
+    }
+    if (ItemDisplay == ItemPrevious){
+        pickRandomItemInner()
+    }
+}
+
+def display(){
+    /title @s times 0 20 0
+    switch(ItemDisplay){
+        forgenerate($i,items){
+            define int $char = hex($i.index)
+            $i.index -> title(@s,title,("\uE$char",font="mgm_item"))
+        }
+    }
+}

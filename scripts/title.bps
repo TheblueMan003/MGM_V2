@@ -1,0 +1,32 @@
+package titles
+
+INT CurrentIndex
+
+def unequip(){
+    if (CurrentIndex >= 0){
+        item.give(CurrentIndex)
+        CurrentIndex = -1
+    }
+}
+def lazy setTitle(items index,void=>void $fct){
+    unequip()
+    item.consume()
+    CurrentIndex = index
+    $fct()
+}
+
+def @playerinit(){
+    set_default()
+}
+
+forgenerate($i, titles){
+    def set_$i(){
+        team a = team($i.name)
+        define int $char = hex($i.index)
+        a.setprefix(("\uE$char",font="mgm_titles",color=white))
+        a.setcolor($i.color)
+        setTitle(title_$i){
+            a.join()
+        }
+    }
+}

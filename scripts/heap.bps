@@ -1,0 +1,99 @@
+package heap
+
+int heapCounter := 0
+INT HeapID
+BOOL WasInit
+
+define int $heap_x = 1024000
+define int $heap_z = 0
+
+forceload($heap_x $heap_z $eval($heap_x+256) $heap_z)
+
+def resetAll(){
+    WasInit = 0
+    HeapID = 0
+    heapCounter = 0
+}
+def @playertick check_init(){
+    WasInit := false
+    if (!WasInit){
+        if (reset(HeapID)){
+            WasInit = true
+        }
+    }
+}
+def @playerinit init(){
+    heapCounter++
+    HeapID = heapCounter
+    debug("Init Player: ",@s, " with heapID")
+}
+
+bool reset(int index){
+    var ret = false
+    positioned($heap_x -64 $heap_z){
+        pointer.with{
+            int x = @s.x + index%16
+            int z = @s.z + index/16
+            
+            @s.x = x
+            @s.z = z
+            
+            at(@s){
+                forceload(~ ~)
+                if (block(~ ~ ~ #{air,barrel})){
+                /fill ~ -64 ~ ~ 319 ~ barrel
+                    ret = true
+                }
+            }
+        } 
+    }
+    return ret
+}
+
+def saveEnderchest(int y){
+    positioned($heap_x -64 $heap_z){
+        int index = HeapID
+        unitag(owner)
+        pointer.with{
+            int x = @s.x + index%16
+            y -= 63
+            int z = @s.z + index/16
+            
+            @s.x = x
+            @s.y = y
+            @s.z = z
+            
+            at(@s){
+                with(@p[tag=owner]){
+                    inventory.copyenderchesttochest()
+                }
+            }
+        }
+        untag(owner)
+    }
+}
+
+def loadEnderchest(int y){
+    positioned($heap_x -64 $heap_z){
+        /setblock ~ ~ ~ barrel
+        
+        int index = HeapID
+        unitag(owner)
+        pointer.with{
+            int x = @s.x + index%16
+            y -= 63
+            int z = @s.z + index/16
+            
+            @s.x = x
+            @s.y = y
+            @s.z = z
+            
+            at(@s){
+                with(@p[tag=owner]){
+                    inventory.copychesttoenderchest()
+                }
+            }
+        } 
+        untag(owner)
+    }
+}

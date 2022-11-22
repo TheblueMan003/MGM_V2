@@ -1,0 +1,78 @@
+forgenerate($i, (white,purple,blue,green,yellow)){
+    jsonfile gift_$i{
+        "credit": "Made with Blockbench",
+        "texture_size": [128, 128],
+        "textures": {
+            "0": "custom/gift_$i",
+            "particle": "custom/gift_$i"
+        },
+        "elements": [
+            {
+                "name": "body",
+                "from": [1, 0, 1],
+                "to": [15, 9, 15],
+                "faces": {
+                    "north": {"uv": [1.75, 4.625, 3.5, 5.75], "texture": "#0"},
+                    "east": {"uv": [0, 4.625, 1.75, 5.75], "texture": "#0"},
+                    "south": {"uv": [5.25, 4.625, 7, 5.75], "texture": "#0"},
+                    "west": {"uv": [3.5, 4.625, 5.25, 5.75], "texture": "#0"},
+                    "up": {"uv": [3.5, 4.625, 1.75, 2.875], "texture": "#0"},
+                    "down": {"uv": [5.25, 2.875, 3.5, 4.625], "texture": "#0"}
+                }
+            },
+            {
+                "name": "body2",
+                "from": [0.2, 8.2, 0.2],
+                "to": [15.8, 14.8, 15.8],
+                "faces": {
+                    "north": {"uv": [1.75, 8, 3.5, 8.625], "texture": "#0"},
+                    "east": {"uv": [0, 8, 1.75, 8.625], "texture": "#0"},
+                    "south": {"uv": [5.25, 8, 7, 8.625], "texture": "#0"},
+                    "west": {"uv": [3.5, 8, 5.25, 8.625], "texture": "#0"},
+                    "up": {"uv": [3.5, 8, 1.75, 6.25], "texture": "#0"},
+                    "down": {"uv": [5.25, 6.25, 3.5, 8], "texture": "#0"}
+                }
+            },
+            {
+                "name": "body",
+                "from": [1, 15, 8],
+                "to": [15, 24, 8],
+                "faces": {
+                    "north": {"uv": [5.25, 0, 7, 1.125], "texture": "#0"},
+                    "east": {"uv": [5.25, 0, 5.25, 1.125], "texture": "#0"},
+                    "south": {"uv": [5.25, 0, 7, 1.125], "texture": "#0"},
+                    "west": {"uv": [7, 0, 7, 1.125], "texture": "#0"},
+                    "up": {"uv": [7, 0, 5.25, 0], "texture": "#0"},
+                    "down": {"uv": [8.75, 0, 7, 0], "texture": "#0"}
+                }
+            }
+            ],
+        "display": {
+            "thirdperson_righthand": {
+                "translation": [0, 1.5, 0],
+                "scale": [0.5, 0.5, 0.5]
+            },
+            "thirdperson_lefthand": {
+                "translation": [0, 1.25, 0],
+                "scale": [0.5, 0.5, 0.5]
+            },
+            "firstperson_righthand": {
+                "scale": [0.5, 0.5, 0.5]
+            },
+            "firstperson_lefthand": {
+                "translation": [0, 1.75, 0],
+                "scale": [0.5, 0.5, 0.5]
+            },
+            "ground": {
+                "scale": [0.5, 0.5, 0.5]
+            },
+            "gui": {
+                "rotation": [25, 52, 0],
+                "scale": [0.75, 0.75, 0.75]
+            },
+            "fixed": {
+                "translation": [0, -2, -0.75]
+            }
+        }
+    }
+}

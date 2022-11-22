@@ -1,0 +1,151 @@
+package code_redeems
+
+define int $nb = fromconst(mgm2.codeNb)
+
+INT Code
+INT[$eval($nb)] Redeems
+
+
+def menu_reset(){
+    clear(diamond)
+    
+    inventory.clearenderchest()
+    
+    inventory.setSlot(enderchest.0, minecraft:diamond{CustomModelData:11,display:{Name:'[{"text":"1","italic":false}]',Lore:['[{"text":"","color":"yellow","italic":false}]']}},1)
+    inventory.setSlot(enderchest.1, minecraft:diamond{CustomModelData:12,display:{Name:'[{"text":"2","italic":false}]',Lore:['[{"text":"","color":"yellow","italic":false}]']}},1)
+    inventory.setSlot(enderchest.2, minecraft:diamond{CustomModelData:13,display:{Name:'[{"text":"3","italic":false}]',Lore:['[{"text":"","color":"yellow","italic":false}]']}},1)
+    
+    inventory.setSlot(enderchest.9, minecraft:diamond{CustomModelData:14,display:{Name:'[{"text":"4","italic":false}]',Lore:['[{"text":"","color":"yellow","italic":false}]']}},1)
+    inventory.setSlot(enderchest.10, minecraft:diamond{CustomModelData:15,display:{Name:'[{"text":"5","italic":false}]',Lore:['[{"text":"","color":"yellow","italic":false}]']}},1)
+    inventory.setSlot(enderchest.11, minecraft:diamond{CustomModelData:16,display:{Name:'[{"text":"6","italic":false}]',Lore:['[{"text":"","color":"yellow","italic":false}]']}},1)
+    
+    inventory.setSlot(enderchest.18, minecraft:diamond{CustomModelData:17,display:{Name:'[{"text":"7","italic":false}]',Lore:['[{"text":"","color":"yellow","italic":false}]']}},1)
+    inventory.setSlot(enderchest.19, minecraft:diamond{CustomModelData:18,display:{Name:'[{"text":"8","italic":false}]',Lore:['[{"text":"","color":"yellow","italic":false}]']}},1)
+    inventory.setSlot(enderchest.20, minecraft:diamond{CustomModelData:19,display:{Name:'[{"text":"9","italic":false}]',Lore:['[{"text":"","color":"yellow","italic":false}]']}},1)
+    
+    inventory.setSlot(enderchest.12, minecraft:diamond{CustomModelData:10,display:{Name:'[{"text":"0","italic":false}]',Lore:['[{"text":"","color":"yellow","italic":false}]']}},1)
+    
+    inventory.setSlot(enderchest.8, minecraft:diamond{CustomModelData:20,display:{Name:'[{"text":"Validate","italic":false}]',Lore:['[{"text":"Click to Redeem the Code","color":"yellow","italic":false}]']}},1)
+    inventory.setSlot(enderchest.26, minecraft:diamond{CustomModelData:21,display:{Name:'[{"text":"Cancel","italic":false}]',Lore:['[{"text":"Click to Cancel","color":"yellow","italic":false}]']}},1)
+    
+    
+    inventory.setSlot(enderchest.4, minecraft:diamond{CustomModelData:5,display:{Name:'[{"text":"","italic":false}]',Lore:['[{"text":"","color":"yellow","italic":false}]']}},1)
+}
+
+def init(){
+    menu.showenderchest{
+        main()
+    }
+    
+    menu_reset()
+    
+    Code = 0
+}
+def input(int nb){
+    sound.play(minecraft:block.note_block.bell)
+    Code *= 10
+    Code += nb
+    menu_reset()
+}
+def checkCode(){
+    int uuid = @s.uuid_0 % 100
+    bool found = false
+    Redeems := 0
+    forgenerate($i,codes){
+        if ($i.relative){
+            if (Code == uuid + $i.value){
+                int redeemed = Redeems[$i.index]
+                found = true
+                if (redeemed){
+                    tellraw(@s,("You already redeemed this code!",red))
+                    sound.play(minecraft:entity.villager.no)
+                }
+                else{
+                    Redeems[$i.index] = 1
+                    item.give($i.item)
+                    sound.play(minecraft:entity.villager.yes)
+                }
+            }
+        }
+        if (!$i.relative){
+            if (Code == $i.value){
+                int redeemed = Redeems[$i.index]
+                found = true
+                if (redeemed){
+                    tellraw(@s,("You already redeemed this code!",red))
+                    sound.play(minecraft:entity.villager.no)
+                }
+                else{
+                    Redeems[$i.index] = 1
+                    item.give($i.item)
+                    sound.play(minecraft:entity.villager.yes)
+                }
+            }
+        }
+    }
+    if (Code < 0 && @s[tag=__debug__]){
+        item.give(-Code+1)
+        found = 1
+    }
+    if (!found){
+        tellraw(@s,("Invalid code!",red))
+        sound.play(minecraft:entity.villager.no)
+    }
+    Code = 0
+}
+def cancel(){
+    if (Code != 0 && @s[tag=__debug__]){
+        void=>void c = Code
+        c()
+    }
+    Code = 0
+    sound.play(minecraft:entity.villager.no)
+}
+def main(){
+    if (!@s[nbt={EnderItems:[{Slot:4b,id:"minecraft:diamond"}]}]){
+        Code *= -1
+        menu_reset()
+    }
+    if (!@s[nbt={EnderItems:[{Slot:8b,id:"minecraft:diamond"}]}]){
+        checkCode()
+        menu_reset()
+    }
+    if (!@s[nbt={EnderItems:[{Slot:26b,id:"minecraft:diamond"}]}]){
+        cancel()
+        menu_reset()
+    }
+    
+    if (!@s[nbt={EnderItems:[{Slot:0b,id:"minecraft:diamond"}]}]){
+        input(1)
+    }
+    if (!@s[nbt={EnderItems:[{Slot:1b,id:"minecraft:diamond"}]}]){
+        input(2)
+    }
+    if (!@s[nbt={EnderItems:[{Slot:2b,id:"minecraft:diamond"}]}]){
+        input(3)
+    }
+    
+    if (!@s[nbt={EnderItems:[{Slot:9b,id:"minecraft:diamond"}]}]){
+        input(4)
+    }
+    if (!@s[nbt={EnderItems:[{Slot:10b,id:"minecraft:diamond"}]}]){
+        input(5)
+    }
+    if (!@s[nbt={EnderItems:[{Slot:11b,id:"minecraft:diamond"}]}]){
+        input(6)
+    }
+    
+    if (!@s[nbt={EnderItems:[{Slot:18b,id:"minecraft:diamond"}]}]){
+        input(7)
+    }
+    if (!@s[nbt={EnderItems:[{Slot:19b,id:"minecraft:diamond"}]}]){
+        input(8)
+    }
+    if (!@s[nbt={EnderItems:[{Slot:20b,id:"minecraft:diamond"}]}]){
+        input(9)
+    }
+    
+    if (!@s[nbt={EnderItems:[{Slot:12b,id:"minecraft:diamond"}]}]){
+        input(0)
+    }
+}

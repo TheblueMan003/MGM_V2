@@ -1,0 +1,93 @@
+forgenerate($i, games){
+    forgenerate($j, (normal, selected, locked)){
+        jsonfile game_button_$i_$j{
+            "credit": "Made with Blockbench",
+            "texture_size": [1024, 1024],
+            "textures": {
+                "2": "custom/game_button/$i_$j",
+                "particle": "custom/game_button/$i_$j"
+            },
+            "elements": [
+                {
+                    "from": [-16, -14, 8],
+                    "to": [32, 13, 8],
+                    "faces": {
+                        "north": {"uv": [0, 0, 16, 8.98438], "texture": "#2"},
+                        "east": {"uv": [0, 0, 16, 8.98438], "texture": "#2"},
+                        "south": {"uv": [0, 0, 16, 8.98438], "texture": "#2"},
+                        "west": {"uv": [0, 0, 16, 8.98438], "texture": "#2"},
+                        "up": {"uv": [0, 0, 16, 8.98438], "texture": "#2"},
+                        "down": {"uv": [0, 0, 16, 8.98438], "texture": "#2"}
+                    }
+                }
+                ],
+            "display": {
+                "head": {
+                    "translation": [0, -27.25, 0],
+                    "scale": [1.8, 1.8, 1.8]
+                }
+            }
+        }
+    }
+}
+
+forgenerate($i, (z_left_arrow, z_right_arrow, z_exit)){
+    forgenerate($j, (normal, selected, locked)){
+        jsonfile game_button_$i_$j{
+            "credit": "Made with Blockbench",
+            "textures": {
+                "1": "custom/game_button/$i_$j"
+            },
+            "elements": [
+                {
+                    "from": [-16, -16, 8],
+                    "to": [32, 32, 8],
+                    "faces": {
+                        "north": {"uv": [0, 0, 16, 16], "texture": "#1"},
+                        "east": {"uv": [0, 0, 0, 16], "texture": "#1"},
+                        "south": {"uv": [0, 0, 16, 16], "texture": "#1"},
+                        "west": {"uv": [0, 0, 0, 16], "texture": "#1"},
+                        "up": {"uv": [0, 0, 16, 0], "texture": "#1"},
+                        "down": {"uv": [0, 0, 16, 0], "texture": "#1"}
+                    }
+                }
+                ],
+            "display": {
+                "head": {
+                    "translation": [0, -42.25, 0],
+                    "scale": [1.8, 1.8, 1.8]
+                }
+            }
+        }
+    }
+}
+
+define int $pages = fromconst(mgm2.gamesPageNb)
+forgenerate($i, 0, $eval($pages-1)){
+    jsonfile game_select_text_$i{
+        "credit": "Made with Blockbench",
+        "textures": {
+            "1": "custom/game_button/game_select_text_$i"
+        },
+        "elements": [
+            {
+                "from": [-16, -16, 8],
+                "to": [32, 32, 8],
+                "faces": {
+                    "north": {"uv": [0, 0, 16, 16], "texture": "#1"},
+                    "east": {"uv": [0, 0, 0, 16], "texture": "#1"},
+                    "south": {"uv": [0, 0, 16, 16], "texture": "#1"},
+                    "west": {"uv": [0, 0, 0, 16], "texture": "#1"},
+                    "up": {"uv": [0, 0, 16, 0], "texture": "#1"},
+                    "down": {"uv": [0, 0, 16, 0], "texture": "#1"}
+                }
+            }
+            ],
+        "display": {
+            "head": {
+                "translation": [0, -42.25, 0],
+                "scale": [4, 4, 1.8]
+            }
+        }
+    }
+}

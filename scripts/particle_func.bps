@@ -1,0 +1,128 @@
+package particle
+
+def select_heart(){
+    setParticle(particle_heart){
+        /particle minecraft:heart ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_flame(){
+    setParticle(particle_flame){
+        /particle minecraft:flame ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_angry(){
+    setParticle(particle_angry){
+        /particle minecraft:angry_villager ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+
+def select_soul(){
+    setParticle(particle_soul){
+        /particle minecraft:soul ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_happy(){
+    setParticle(particle_happy){
+        /particle minecraft:happy_villager ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_soul_flame(){
+    setParticle(particle_soul_flame){
+        /particle minecraft:soul_fire_flame ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_effect(){
+    setParticle(particle_effect){
+        /particle minecraft:effect ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_dust_white(){
+    setParticle(particle_dust_white){
+        /particle minecraft:dust 1 1 1 1 ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_dust_red(){
+    setParticle(particle_dust_red){
+        /particle minecraft:dust 1 0 0 1 ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_dust_orange(){
+    setParticle(particle_dust_orange){
+        /particle minecraft:dust 1 0.5 0 1 ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_dust_yellow(){
+    setParticle(particle_dust_yellow){
+        /particle minecraft:dust 1 1 0 1 ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_dust_green(){
+    setParticle(particle_dust_green){
+        /particle minecraft:dust 0 1 0 1 ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_dust_aqua(){
+    setParticle(particle_dust_aqua){
+        /particle minecraft:dust 0 1 1 1 ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_dust_blue(){
+    setParticle(particle_dust_blue){
+        /particle minecraft:dust 0 0 1 1 ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_dust_purple(){
+    setParticle(particle_dust_purple){
+        /particle minecraft:dust 1 0 1 1 ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_dust_black(){
+    setParticle(particle_dust_black){
+        /particle minecraft:dust 0 0 0 1 ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_firework(){
+    setParticle(particle_firework){
+        /particle minecraft:firework ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_note(){
+    setParticle(particle_note){
+        /particle minecraft:note ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_lava(){
+    setParticle(particle_lava){
+        /particle minecraft:lava ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_water(){
+    setParticle(particle_water){
+        /particle minecraft:splash ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}
+
+def select_totem(){
+    setParticle(particle_totem){
+        /particle minecraft:totem_of_undying ~ ~1 ~ 0.5 0.5 0.5 .1 1
+    }
+}

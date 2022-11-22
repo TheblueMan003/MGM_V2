@@ -1,0 +1,135 @@
+package tools
+
+void=>void dummy
+forgenerate($i,games){
+    def enableGame_$i(){
+        gameselector.gameEnabled[$i.index] = true
+    }
+    dummy = enableGame_$i
+    def disableGame_$i(){
+        gameselector.gameEnabled[$i.index] = false
+    }
+    dummy = disableGame_$i
+}
+def enableGate_omega(){
+    gameselector.omegagate = true
+}
+dummy = enableGate_omega
+def disableGate_omega(){
+    gameselector.omegagate = false
+}
+dummy = disableGate_omega
+def enableGate_alpha(){
+    gameselector.alphagate = true
+}
+dummy = enableGate_alpha
+def disableGate_alpha(){
+    gameselector.alphagate = false
+}
+dummy = disableGate_omega
+
+
+
+def install(){
+    test.run()
+    generate_box.start()
+}
+
+def addGameMaser(){
+    tag(gamemaster)
+}
+def removeGameMaser(){
+    untag(gamemaster)
+}
+
+
+process generate_gametp{
+    int tick
+    def main(){
+        def lazy box(int $nb){
+            /fill ~ ~ ~ ~4 ~4 ~4 minecraft:white_concrete outline
+            /setblock ~2 ~5 ~2 minecraft:oak_sign[]{Color:"black",GlowingText:1b,Text1:'{"text":"Game N°$eval($nb)"}',Text2:'{"text":""}',Text3:'{"text":""}',Text4:'{"text":""}'}
+        }
+        
+        with(@p[tag=generater]){
+            switch(tick/20){
+                forgenerate($i,0,9){
+                    case($i){
+                        /tp @s $eval($i*10*5+8+50) -40 7
+                        if (tick % 20 == 19){
+                            print(("[TBMS] "),"Generating Game Teleportation Boxes $i/10")
+                            forgenerate($j,0,9){
+                                positioned($eval(($i*10+$j)*5)eval$ -48 0){
+                                    box($i*10+$j)
+                                } 
+                            }
+                        }
+                    }
+                }
+            }
+            if (tick/20 == 0 && tick%20==18){
+                positioned(0 -40 0){
+                    box(-1)
+                } 
+                positioned(5 -40 0){
+                    box(-2)
+                } 
+            }
+            
+            tick++
+            if (tick > 20 * 11){
+                untag(generater)
+                stop()
+            }
+        }
+    }
+    def onStart(){
+        tick = 0
+        tag(generater)
+    }
+}
+process generate_box{
+    int tick
+    def main(){
+        with(@p[tag=generater]){
+            switch(tick/40){
+                forgenerate($i,0,9){
+                    case($i){
+                        /tp @s $eval($i*10*19+8+95) -56 7
+                        if (tick % 40 == 39){
+                            print(("[TBMS] "),"Generating Game Selection Boxes $i/10")
+                            forgenerate($j,0,9){
+                                positioned($eval(($i*10+$j)*19)eval$ -64 0){
+                                    structure("gamebox")
+                                    /setblock ~8 -48 ~8 minecraft:oak_sign[]{Color:"black",GlowingText:1b,Text1:'{"text":"Box N°$eval($i*10+$j)"}',Text2:'{"text":""}',Text3:'{"text":""}',Text4:'{"text":""}'}
+                                } 
+                            }
+                        }
+                    }
+                }
+            }
+            tick++
+            if (tick > 40 * 11){
+                untag(generater)
+                stop()
+                generate_gametp.start()
+            }
+        }
+    }
+    def onStart(){
+        tick = 0
+        tag(generater)
+    }
+}
+
+package debug
+
+def creative(){
+    gamemode(creative)
+}
+tools.dummy=creative
+def adventure(){
+    gamemode(adventure)
+}
+tools.dummy=adventure
+tools.dummy=test.run

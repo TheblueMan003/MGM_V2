@@ -1,0 +1,48 @@
+package lootbox_shop
+
+enum lootboxs_list(json name, json color, json price){
+    white("White Gift",white, 100),
+    green("Green Gift",green, 200),
+    blue("Blue Gift",blue, 500),
+    purple("Purple Gift",light_purple, 1000),
+    gold("Gold Gift",gold, 2000),
+}
+
+def init(){
+    menu.showenderchest{
+        main()
+    }
+    
+    inventory.clearenderchest()
+    
+    forgenerate($i, lootboxs_list){
+        if (money.Money >= $i.price){
+            inventory.setSlot(enderchest.$eval(11+$i.index), minecraft:paper{CustomModelData:$eval(8+$i.index),display:{Name:'[{"text":$i.name,"color":"$i.color","italic":false}]',Lore:['[{"text":"Price: $i.price","color":"yellow","italic":false}]']}},1)
+        }
+        else{
+            inventory.setSlot(enderchest.$eval(11+$i.index), minecraft:barrier{display:{Name:'[{"text":$i.name,"color":"gray","italic":false}]'}},1)
+        }
+    }
+    inventory.setSlot(enderchest.4, minecraft:diamond{CustomModelData:3,display:{Name:'[{"text":"","italic":false}]',Lore:['[{"text":"","color":"yellow","italic":false}]']}},1)
+}
+
+def main(){
+    if (!@s[nbt={EnderItems:[{Slot:4b,id:"minecraft:diamond"}]}]){
+        clear(diamond)
+        init()
+    }
+    forgenerate($i, lootboxs_list){
+        if (!@s[nbt={EnderItems:[{Slot:$eval(11+$i.index)b,id:"minecraft:paper"}]}] &&
+            !@s[nbt={EnderItems:[{Slot:$eval(11+$i.index)b,id:"minecraft:barrier"}]}]){
+            if (money.Money >= $i.price){
+                /playsound minecraft:block.note_block.bell block @s ~ ~ ~ 1 1
+                money.Money -= $i.price
+                
+            }
+            else{
+                clear(@s,barrier)
+            }
+            init()
+        }
+    }
+}

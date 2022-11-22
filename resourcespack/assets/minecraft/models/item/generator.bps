@@ -1,0 +1,55 @@
+forgenerate($i, items){
+    models.item.add(paper, $i.item_model, $eval($i.index+1),)
+}
+models.item.generate(paper)
+
+forgenerate($i, games){
+    forgenerate($j, (normal, selected, locked)){
+        models.item.add(turtle_egg, "custom/game_button_$i_$j", $eval($i.index*3+$j.index+1))
+    }
+}
+
+forgenerate($i, (z_left_arrow, z_right_arrow, z_exit)){
+    forgenerate($j, (normal, selected, locked)){
+        models.item.add(turtle_egg, "custom/game_button_$i_$j", $eval(5000+$i.index*3+$j.index))
+    }
+}
+define int $pages = fromconst(mgm2.gamesPageNb)
+forgenerate($i, 0, $eval($pages-1)){
+    models.item.add(turtle_egg, "custom/game_select_text_$i", $eval(6000 + $i))
+}
+
+
+forgenerate($i,(bank,storage,lootbox,code)){
+    models.item.add(turtle_egg, "custom/bubble_$i", $eval(10000+$i.index))
+}
+
+models.item.generate(turtle_egg)
+
+
+model.npc.new(coal,"item/darkbrine_")
+model.npc.new(charcoal,"item/thehappywheels1")
+model.npc.new(raw_iron,"item/mezimo")
+model.npc.new(iron_ingot,"custom/skin/skin4")
+model.npc.new(raw_gold,"custom/skin/skin5")
+model.npc.new(gold_ingot,"custom/skin/skin6")
+model.npc.new(raw_copper,"custom/skin/skin7")
+model.npc.new(copper_ingot,"custom/skin/theblueman003")
+
+models.item.flat(previous,"ui/previous")
+models.item.flat(next,"ui/next")
+
+models.item.new(diamond,("item/previous",1),("item/next",2),("custom/shop",3),("custom/bank",4),("custom/code",5)
+,("custom/number_0",10)
+,("custom/number_1",11)
+,("custom/number_2",12)
+,("custom/number_3",13)
+,("custom/number_4",14)
+,("custom/number_5",15)
+,("custom/number_6",16)
+,("custom/number_7",17)
+,("custom/number_8",18)
+,("custom/number_9",19)
+,("custom/number_valid",20)
+,("custom/number_cancel",21)
+)

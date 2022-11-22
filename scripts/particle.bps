@@ -1,0 +1,26 @@
+package particle
+
+VOID=>VOID CurrentParticle
+INT CurrentIndex
+
+
+def @playermove(){
+    CurrentIndex := -1
+    if (CurrentIndex >= 0){
+        void=>void a = CurrentParticle
+        a()
+    }
+}
+
+def unequip(){
+    if (CurrentIndex >= 0){
+        item.give(CurrentIndex)
+        CurrentIndex = -1
+    }
+}
+def lazy setParticle(items index,void=>void $fct){
+    unequip()
+    item.consume()
+    CurrentIndex = index
+    CurrentParticle = $fct
+}

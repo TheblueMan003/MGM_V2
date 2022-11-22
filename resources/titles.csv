@@ -1,0 +1,14 @@
+id;name;color
+default;"Default";gray
+sticky_piston;"Stick Piston";green
+creator;"Creator";aqua
+coal_miner;"Coal Miner";gray
+iron_miner;"Iron Miner";white
+copper_miner;"Copper Miner";gold
+gold_miner;"Gold Miner";yellow
+redstone_miner;"Redstone Miner";red
+lapis_miner;"Lapis Miner";blue
+emerald_miner;"Emerald Miner";green
+diamond_miner;"Diamond Miner";aqua
+pufferfish;"Pufferfish";aqua
+imposter;"Imposter";red

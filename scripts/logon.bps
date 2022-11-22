@@ -1,0 +1,143 @@
+package logon
+
+int globalTick
+INT PlayTick
+INT LastTick
+INT LastMGMTick, LastGameTick, SneakTime
+INT Loggon
+INT RewardCap
+INT GameSelection
+BOOL Sneaking
+
+def ticking main(){
+    globalTick++
+}
+
+def @playerinit(){
+    RewardCap := 0
+    switch(lcg.range(0,5)){
+        0 -> item.give_money_0()
+        1 -> item.give_money_1()
+        2 -> item.give_money_2()
+        3 -> item.give_lootbox_0()
+        4 -> item.give_lootbox_1()
+    }
+}
+
+def enterPortal(){
+    GameSelection = 120
+    enterGame()
+}
+
+def @playertick(){
+    effect.weakness(999999,255,true)
+    effect.night_vision(999999,0,true)
+    Sneaking = false
+    input.onrelog{
+        menu.close()
+        if (math.abs(globalTick - LastTick) >= $eval(20*60*15)){
+            @playerreload()
+            switch(lcg.range(0,5)){
+                0 -> item.give_money_0()
+                1 -> item.give_money_1()
+                2 -> item.give_money_2()
+                3 -> item.give_lootbox_0()
+                4 -> item.give_lootbox_1()
+            }
+        }
+        GameSelection = 0
+        SneakTime = 0
+        @playerrelog()
+    }
+    if (GameSelection > 0){
+        GameSelection--
+        if (GameSelection == 0){
+            /tp @s -16.5 71.00 8.60 -90 0
+        }
+    }
+    
+    maps.initplayer{
+        showmessage()
+        @playerinit()
+    }
+    input.whilewalk{
+        @playermove()
+    }
+    input.whilesprint{
+        @playermove()
+    }
+    input.whileswim{
+        @playermove()
+    }
+    input.onjump{
+        @playermove()
+    }
+    input.whilesneak{
+        Sneaking = true
+        SneakTime++
+        if (SneakTime > 10 && Loggon){
+            Loggon = 0
+            Menu.close()
+        }
+        @playermove()
+    }
+    input.onclickwarpedfungus{
+        @playerclickfungus()
+    }
+    
+    LastTick = globalTick
+    PlayTick++
+    if (PlayTick % $eval(20*60*3) == 0 && RewardCap < 100){
+        RewardCap ++
+        item.give_money_0()
+        sound.play(minecraft:block.note_block.bell)
+    }
+}
+
+def showmessage(){
+    /title @s times 0 60 20
+    title(@s,title,("\uE000", font="mgm"))
+    //Loggon = 1
+    //menu.showLock(){
+    //    /title @s times 0 20 0
+    //    title(@s,title,("\uE000", font="mgm"))
+    //    actionbar.show(200,1,"Press Right Click to exit")
+    //}
+}
+def @playerreload(){
+    Loggon = 1
+    RewardCap = 0
+    showmessage()
+}
+
+def @playerclickfungus click(){
+    if (Loggon){
+        Loggon = 0
+        Menu.close()
+    }
+}
+
+def enterMGMEvent(){
+    if (math.abs(globalTick - LastMGMTick) >= $eval(20*60*120)){
+        LastMGMTick = globalTick
+        switch(lcg.range(0,5)){
+            0 -> item.give_money_0()
+            1 -> item.give_money_1()
+            2 -> item.give_money_2()
+            3 -> item.give_lootbox_0()
+            4 -> item.give_lootbox_1()
+        }
+    }
+}
+def enterGame(){
+    if (math.abs(globalTick - LastGameTick) >= $eval(20*60*120)){
+        LastGameTick = globalTick
+        switch(lcg.range(0,5)){
+            0 -> item.give_money_0()
+            1 -> item.give_money_1()
+            2 -> item.give_money_2()
+            3 -> item.give_lootbox_0()
+            4 -> item.give_lootbox_1()
+        }
+    }
+}

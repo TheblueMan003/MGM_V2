@@ -1,0 +1,63 @@
+id;name;color;item_model;ui_texture;lore;onget;onclick;lootbox;buyprice;sellprice;tier
+money_0;"10 MGM Coins";white;"custom/coin_yellow";"lootbox_ui/coin_yellow.png";"Click to collect";pass;money.add10;true;-1;10;0
+money_1;"20 MGM Coins";green;"custom/coin_orange";"lootbox_ui/coin_orange.png";"Click to collect";pass;money.add20;true;-1;20;1
+money_2;"50 MGM Coins";green;"custom/coin_green";"lootbox_ui/coin_green.png";"Click to collect";pass;money.add50;true;-1;50;1
+money_3;"100 MGM Coins";blue;"custom/coin_blue";"lootbox_ui/coin_blue.png";"Click to collect";pass;money.add100;true;-1;100;2
+money_4;"200 MGM Coins";blue;"custom/coin_aqua";"lootbox_ui/coin_aqua.png";"Click to collect";pass;money.add200;true;-1;200;2
+money_5;"500 MGM Coins";light_purple;"custom/coin_purple";"lootbox_ui/coin_purple.png";"Click to collect";pass;money.add500;true;-1;500;3
+money_6;"1000 MGM Coins";gold;"custom/coin_red";"lootbox_ui/coin_red.png";"Click to collect";pass;money.add1000;true;-1;1000;4
+lootbox_0;"White Gift";white;"custom/gift_white";"lootbox_ui/gift_white.png";"Click to open";pass;lootbox.opentier0;true;100;50;0
+lootbox_1;"Green Gift";green;"custom/gift_green";"lootbox_ui/gift_green.png";"Click to open";pass;lootbox.opentier1;true;200;100;1
+lootbox_2;"Blue Gift";blue;"custom/gift_blue";"lootbox_ui/gift_blue.png";"Click to open";pass;lootbox.opentier2;true;500;250;2
+lootbox_3;"Purple Gift";light_purple;"custom/gift_purple";"lootbox_ui/gift_purple.png";"Click to open";pass;lootbox.opentier3;true;1000;500;3
+lootbox_4;"Gold Gift";gold;"custom/gift_yellow";"lootbox_ui/gift_yellow.png";"Click to open";pass;lootbox.opentier4;true;10000;5000;4
+particle_heart;"Heart Particles";blue;"custom/particle_heart";"lootbox_ui/particle_heart.png";"Click to equip";pass;particle.select_heart;true;1000;500;2
+particle_flame;"Flame Particles";blue;"custom/particle_flame";"lootbox_ui/particle_flame.png";"Click to equip";pass;particle.select_flame;true;-1;10;2
+particle_angry;"Angry Particles";green;"custom/particle_angry";"lootbox_ui/particle_angry.png";"Click to equip";pass;particle.select_angry;true;-1;10;1
+particle_soul;"Soul Particles";blue;"custom/particle_soul";"lootbox_ui/particle_soul.png";"Click to equip";pass;particle.select_soul;true;-1;10;2
+particle_happy;"Happy Particles";green;"custom/particle_happy";"lootbox_ui/particle_happy.png";"Click to equip";pass;particle.select_happy;true;-1;10;1
+particle_soul_flame;"Soul Flame Particles";blue;"custom/particle_soul_flame";"lootbox_ui/particle_soul_flame.png";"Click to equip";pass;particle.select_soul_flame;true;-1;10;2
+particle_effect;"Effect Particles";green;"custom/particle_effect";"lootbox_ui/particle_effect.png";"Click to equip";pass;particle.select_effect;true;-1;10;1
+particle_dust_white;"White Particles";white;"custom/particle_dust_white";"lootbox_ui/particle_dust_white.png";"Click to equip";pass;particle.select_dust_white;true;-1;10;0
+particle_dust_red;"Red Particles";white;"custom/particle_dust_red";"lootbox_ui/particle_dust_red.png";"Click to equip";pass;particle.select_dust_red;true;-1;10;0
+particle_dust_orange;"Orange Particles";white;"custom/particle_dust_orange";"lootbox_ui/particle_dust_orange.png";"Click to equip";pass;particle.select_dust_orange;true;-1;10;0
+particle_dust_yellow;"Yellow Particles";white;"custom/particle_dust_yellow";"lootbox_ui/particle_dust_yellow.png";"Click to equip";pass;particle.select_dust_yellow;true;-1;10;0
+particle_dust_green;"Green Particles";white;"custom/particle_dust_green";"lootbox_ui/particle_dust_green.png";"Click to equip";pass;particle.select_dust_green;true;-1;10;0
+particle_dust_aqua;"Aqua Particles";white;"custom/particle_dust_aqua";"lootbox_ui/particle_dust_aqua.png";"Click to equip";pass;particle.select_dust_aqua;true;-1;10;0
+particle_dust_blue;"Blue Particles";white;"custom/particle_dust_blue";"lootbox_ui/particle_dust_blue.png";"Click to equip";pass;particle.select_dust_blue;true;-1;10;0
+particle_dust_purple;"Purple Particles";white;"custom/particle_dust_purple";"lootbox_ui/particle_dust_purple.png";"Click to equip";pass;particle.select_dust_purple;true;-1;10;0
+particle_dust_black;"Black Particles";white;"custom/particle_dust_black";"lootbox_ui/particle_dust_black.png";"Click to equip";pass;particle.select_dust_black;true;-1;10;0
+particle_firework;"Firework Particles";gold;"custom/particle_firework";"lootbox_ui/particle_firework.png";"Click to equip";pass;particle.select_firework;true;-1;10;4
+particle_note;"Note Particles";gold;"custom/particle_note";"lootbox_ui/particle_note.png";"Click to equip";pass;particle.select_note;true;-1;10;4
+particle_lava;"Lava Particles";light_purple;"custom/particle_lava";"lootbox_ui/particle_lava.png";"Click to equip";pass;particle.select_lava;true;-1;10;3
+particle_water;"Water Particles";light_purple;"custom/particle_water";"lootbox_ui/particle_water.png";"Click to equip";pass;particle.select_water;true;-1;10;3
+particle_totem;"Totem Particles";gold;"custom/particle_totem";"lootbox_ui/particle_totem.png";"Click to equip";pass;particle.select_totem;true;-1;10;4
+hat_feater;"Feather Hat";blue;"custom/hat_feather";"lootbox_ui/hat_feather.png";"Click to equip";pass;hat.equip;true;1000;500;2
+hat_flat_aqua;"Flat Aqua Hat";white;"custom/hat_flat_aqua";"lootbox_ui/hat_flat_aqua.png";"Click to equip";pass;hat.equip;true;500;250;0
+hat_flat_blue;"Flat Blue Hat";white;"custom/hat_flat_blue";"lootbox_ui/hat_flat_blue.png";"Click to equip";pass;hat.equip;true;500;250;0
+hat_flat_green;"Flat Green Hat";white;"custom/hat_flat_green";"lootbox_ui/hat_flat_green.png";"Click to equip";pass;hat.equip;true;500;250;0
+hat_flat_orange;"Flat Orange Hat";white;"custom/hat_flat_orange";"lootbox_ui/hat_flat_orange.png";"Click to equip";pass;hat.equip;true;500;250;0
+hat_flat_purple;"Flat Purple Hat";white;"custom/hat_flat_purple";"lootbox_ui/hat_flat_purple.png";"Click to equip";pass;hat.equip;true;500;250;0
+hat_flat_red;"Flat Red Hat";white;"custom/hat_flat_red";"lootbox_ui/hat_flat_red.png";"Click to equip";pass;hat.equip;true;500;250;0
+hat_flat_yellow;"Flat Yellow Hat";white;"custom/hat_flat_yellow";"lootbox_ui/hat_flat_yellow.png";"Click to equip";pass;hat.equip;true;500;250;0
+hat_melon_yellow;"Melon Aqua Hat";white;"custom/hat_melon_aqua";"lootbox_ui/hat_melon_aqua.png";"Click to equip";pass;hat.equip;true;500;250;0
+hat_racoon;"Racoon Hat";light_purple;"custom/hat_racoon";"lootbox_ui/hat_racoon.png";"Click to equip";pass;hat.equip;true;2000;1000;3
+hat_top;"Top Hat";light_purple;"custom/hat_top";"lootbox_ui/hat_top.png";"Click to equip";pass;hat.equip;true;2000;1000;3
+hat_crown;"The Crown";gold;"custom/hat_crown";"lootbox_ui/hat_crown.png";"Click to equip";pass;hat.equip;true;100000;10;10000000
+hat_gravestone;"Gravestone Hat";light_purple;"custom/hat_gravestone";"lootbox_ui/hat_gravestone.png";"Click to equip";pass;hat.equip;true;2000;1000;3
+hat_bunny;"Bunny Hat";light_purple;"custom/hat_bunny";"lootbox_ui/hat_bunny.png";"Click to equip";pass;hat.equip;true;2000;1000;3
+hat_tv;"TV Hat";gold;"custom/hat_tv";"lootbox_ui/hat_tv.png";"Click to equip";pass;hat.equip;true;5000;2500;4
+hat_box;"Box Hat";white;"custom/hat_box";"lootbox_ui/hat_box.png";"Click to equip";pass;hat.equip;true;20;10;0
+title_default;"Default Title";white;"custom/title_default";"lootbox_ui/title_default.png";"Click to equip";pass;titles.set_default;false;0;0;0
+title_sticky_piston;"Sticky Piston Title";red;"custom/title_sticky_piston";"lootbox_ui/title_sticky_piston.png";"Click to equip";pass;titles.set_sticky_piston;false;0;0;0
+title_creator;"Creator Title";red;"custom/title_creator";"lootbox_ui/title_creator.png";"Click to equip";pass;titles.set_creator;false;0;0;0
+title_coal_miner;"Coal Miner Title";white;"custom/title_coal_miner";"lootbox_ui/title_coal_miner.png";"Click to equip";pass;titles.set_coal_miner;true;100;50;0
+title_iron_miner;"Iron Miner Title";green;"custom/title_iron_miner";"lootbox_ui/title_iron_miner.png";"Click to equip";pass;titles.set_iron_miner;true;200;100;1
+title_copper_miner;"Copper Miner Title";green;"custom/title_copper_miner";"lootbox_ui/title_copper_miner.png";"Click to equip";pass;titles.set_copper_miner;true;200;100;1
+title_gold_miner;"Gold Miner Title";blue;"custom/title_gold_miner";"lootbox_ui/title_gold_miner.png";"Click to equip";pass;titles.set_gold_miner;true;500;250;2
+title_redstone_miner;"Redstone Miner Title";blue;"custom/title_redstone_miner";"lootbox_ui/title_redstone_miner.png";"Click to equip";pass;titles.set_redstone_miner;true;500;250;2
+title_lapis_miner;"Lapis Miner Title";blue;"custom/title_lapis_miner";"lootbox_ui/title_lapis_miner.png";"Click to equip";pass;titles.set_lapis_miner;true;500;250;2
+title_emerald_miner;"Emerald Miner Title";purple;"custom/title_emerald_miner";"lootbox_ui/title_emerald_miner.png";"Click to equip";pass;titles.set_emerald_miner;true;1000;500;3
+title_diamond_miner;"Diamond Miner Title";gold;"custom/title_diamond_miner";"lootbox_ui/title_diamond_miner.png";"Click to equip";pass;titles.set_diamond_miner;true;2000;1000;4
+title_pufferfish;"Pufferfish Title";gold;"custom/title_pufferfish";"lootbox_ui/title_pufferfish.png";"Click to equip";pass;titles.set_pufferfish;true;2000;1000;4
+title_imposter;"Imposter Title";gold;"custom/title_imposter";"lootbox_ui/title_imposter.png";"Click to equip";pass;titles.set_imposter;false;2000;1000;4

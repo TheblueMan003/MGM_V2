@@ -1,0 +1,68 @@
+package screen
+
+//bossbar controll_help = bossbar("hello")
+//controll_help.setName(("Scroll to select",yellow,bold))
+//
+//def hidebar(){
+//    controll_help.hide()
+//}
+//
+//process controll_help_process{
+//    def main(){
+//        int tick
+//        tick ++
+//        switch(tick % 20){
+//            0 -> controll_help.setName(("Scroll to select",yellow,bold))
+//            10 -> controll_help.setName(("Scroll to select",gold,bold))
+//        }
+//    }
+//}
+//controll_help_process.start()
+
+def screen_controll2(){
+    int id = gameselector.GameBox
+    raycast.shoot(20,0.5,block(~ ~ ~ barrier)){
+        bool click = false
+        input.onclick{
+            click = true
+            tag(scr.issuer)
+        }
+        buttonarg=>void hover = pass
+        with(@e[type=armor_stand,limit=1,sort=nearest,distance=..2.5,tag=scr.clickable],false,id == gameselector.GameBox){
+            select()
+            if (click){
+                ButtonOnClick(null)
+            }
+            hover = ButtonOnHover
+        }
+        hover(null)
+        untag(scr.issuer)
+    }
+}
+
+def screen_tick2(){
+    if (wasActive){
+        with(@e[tag=scr.clickable]){
+            IsSelected = false
+            WasSelected := false
+        }
+    }
+    isActive = false
+    with(@a[tag=scr.controll],true){
+        inventory.setoffhand(carrot_on_a_stick)
+        screen_controll2()
+        isActive = true
+    }
+    if (wasActive){
+        with(@e[tag=scr.clickable]){
+            if (WasSelected && !IsSelected){
+                ButtonOnMouseLeave(null)
+            }
+            if (!WasSelected && IsSelected){
+                ButtonOnMouseEnter(null)
+            }
+            WasSelected = IsSelected
+        }
+    }
+    wasActive = isActive
+}
